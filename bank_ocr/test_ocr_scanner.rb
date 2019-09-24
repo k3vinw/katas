@@ -3,7 +3,7 @@ require "test/unit"
 
 class TestOcrScanner < Test::Unit::TestCase
 
-	def test_user_story_1
+	def test_user_story_1_use_case_1
 		input = <<~HEREDOC
 		 _  _  _  _  _  _  _  _  _ 
 		| || || || || || || || || |
@@ -11,8 +11,10 @@ class TestOcrScanner < Test::Unit::TestCase
 
 		HEREDOC
 
-		assert_equal(9, OcrScanner.scan(input.split("\n")).length)
-		assert_equal("000000000", OcrScanner.scan(input.split("\n")))
+		result = OcrScanner.scan(input.split("\n"))
+
+		assert_equal(9, result.length)
+		assert_equal("000000000", result.encode('utf-8'))
 	end
 
 end
