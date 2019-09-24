@@ -3,7 +3,7 @@ module OcrScanner
 	def self.scan(lines)
 		numbers_found = []
 		scan_for_candidate_by_range(lines, [0, 3], 0, numbers_found)
-		numbers_found.join.encode('utf-8')
+		numbers_found.join
 	end
 
 	def self.scan_for_candidate_by_range(lines, range, row_counter, numbers_found)
