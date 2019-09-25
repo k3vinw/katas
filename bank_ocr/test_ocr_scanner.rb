@@ -14,7 +14,7 @@ class TestOcrScanner < Test::Unit::TestCase
 		result = OcrScanner.scan(input.split("\n"))
 
 		assert_equal(9, result.length)
-		assert_equal("000000000", result.encode('utf-8'))
+		assert_equal("000000000", result)
 	end
 
 end
