@@ -1,0 +1,13 @@
+<h1>Show Pharmacy</h1>
+
+<ul>
+
+  <li>
+    <strong>Company:</strong>
+    <%= @pharmacy.company_id %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.admin_pharmacy_path(@conn, :edit, @pharmacy) %></span>
+<span><%= link "Back", to: Routes.admin_pharmacy_path(@conn, :index) %></span>

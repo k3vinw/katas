@@ -20,6 +20,19 @@ defmodule RxDeliveryWeb.Router do
     resources "/users", UserController
   end
 
+  scope "/admin", RxDeliveryWeb.Admin, as: :admin do
+    pipe_through :browser
+    resources "/companies", CompanyController
+    resources "/pharmacies", PharmacyController
+    resources "/couriers", CourierController
+  end
+
+  scope "/dms", RxDeliveryWeb.DMS, as: :dms do
+    pipe_through :browser
+    resources "/patients", PatientController
+    resources "/orders", OrderController
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", RxDeliveryWeb do
   #   pipe_through :api
