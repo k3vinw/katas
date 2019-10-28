@@ -3,7 +3,7 @@ defmodule RxDelivery.Admin.Courier do
   import Ecto.Changeset
 
   schema "couriers" do
-    field :company_id, :integer
+    belongs_to :company, RxDelivery.Admin.Company
 
     timestamps()
   end
@@ -12,6 +12,6 @@ defmodule RxDelivery.Admin.Courier do
   def changeset(courier, attrs) do
     courier
     |> cast(attrs, [:company_id])
-    |> validate_required([:company_id])
+    |> foreign_key_constraint(:company_id)
   end
 end

@@ -3,9 +3,9 @@ defmodule RxDeliveryWeb.Admin.CourierControllerTest do
 
   alias RxDelivery.Admin
 
-  @create_attrs %{company_id: 42}
-  @update_attrs %{company_id: 43}
-  @invalid_attrs %{company_id: nil}
+  @create_attrs %{}
+  @update_attrs %{}
+  @invalid_attrs %{company_id: -1}
 
   def fixture(:courier) do
     {:ok, courier} = Admin.create_courier(@create_attrs)
