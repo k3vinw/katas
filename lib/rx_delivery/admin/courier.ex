@@ -5,7 +5,7 @@ defmodule RxDelivery.Admin.Courier do
 
   schema "couriers" do
     field :name, :string
-    has_many :addresses, Address
+    has_one :address, Address
 
     timestamps()
   end

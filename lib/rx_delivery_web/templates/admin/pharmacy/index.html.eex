@@ -3,7 +3,7 @@
 <table>
   <thead>
     <tr>
-      <th>Company</th>
+      <th>Pharmacy</th>
 
       <th></th>
     </tr>
@@ -11,7 +11,7 @@
   <tbody>
 <%= for pharmacy <- @pharmacies do %>
     <tr>
-      <td><%= pharmacy.company_id %></td>
+      <td><%= pharmacy.name %></td>
 
       <td>
         <span><%= link "Show", to: Routes.admin_pharmacy_path(@conn, :show, pharmacy) %></span>

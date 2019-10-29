@@ -5,7 +5,7 @@ defmodule RxDelivery.Admin.Pharmacy do
 
   schema "pharmacies" do
     field :name, :string
-    has_many :addresses, Address
+    has_one :address, Address
 
     timestamps()
   end

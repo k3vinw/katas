@@ -8,6 +8,8 @@ defmodule RxDelivery.Admin.Address do
     field :name, :string
     field :state, :string
     field :zip, :string
+    belongs_to :pharmacy, RxDelivery.Admin.Address
+    belongs_to :courier, RxDelivery.Admin.Address
 
     timestamps()
   end
