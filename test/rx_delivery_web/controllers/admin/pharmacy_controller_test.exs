@@ -3,9 +3,9 @@ defmodule RxDeliveryWeb.Admin.PharmacyControllerTest do
 
   alias RxDelivery.Admin
 
-  @create_attrs %{}
-  @update_attrs %{}
-  @invalid_attrs %{company_id: -1}
+  @create_attrs %{name: "some name"}
+  @update_attrs %{name: "some updated name"}
+  @invalid_attrs %{name: nil}
 
   def fixture(:pharmacy) do
     {:ok, pharmacy} = Admin.create_pharmacy(@create_attrs)

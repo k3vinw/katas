@@ -1,10 +1,11 @@
 defmodule RxDelivery.Admin.Pharmacy do
   use Ecto.Schema
   import Ecto.Changeset
+  alias RxDelivery.Admin.Address
 
   schema "pharmacies" do
-    field :address_id, :integer
     field :name, :string
+    has_many :addresses, Address
 
     timestamps()
   end
@@ -12,7 +13,7 @@ defmodule RxDelivery.Admin.Pharmacy do
   @doc false
   def changeset(pharmacy, attrs) do
     pharmacy
-    |> cast(attrs, [:name, :address_id])
-    |> validate_required([:name, :address_id])
+    |> cast(attrs, [:name])
+    |> validate_required([:name])
   end
 end

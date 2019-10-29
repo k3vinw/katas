@@ -3,7 +3,7 @@
 <table>
   <thead>
     <tr>
-      <th>Company</th>
+      <th>Name</th>
 
       <th></th>
     </tr>
@@ -11,7 +11,7 @@
   <tbody>
 <%= for courier <- @couriers do %>
     <tr>
-      <td><%= courier.company_id %></td>
+      <td><%= courier.name %></td>
 
       <td>
         <span><%= link "Show", to: Routes.admin_courier_path(@conn, :show, courier) %></span>

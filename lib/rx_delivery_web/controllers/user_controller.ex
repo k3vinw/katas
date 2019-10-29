@@ -34,7 +34,7 @@ defmodule RxDeliveryWeb.UserController do
         couriers = Admin.list_couriers
           |> Enum.map(&{&1.name, &1.id})
         render(conn, "new.html", changeset: changeset,
-          pharamacies: pharmacies,
+          pharmacies: pharmacies,
           couriers: couriers)
     end
   end
@@ -43,7 +43,7 @@ defmodule RxDeliveryWeb.UserController do
     user = Accounts.get_user!(id)
     pharmacy = case user.pharmacy_id do
       id when id !== nil ->
-        Admin.get_phrmacy!(id)
+        Admin.get_pharmacy!(id)
       _ ->
         %{name: ""}
     end

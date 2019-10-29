@@ -3,73 +3,12 @@ defmodule RxDelivery.AdminTest do
 
   alias RxDelivery.Admin
 
-  describe "companies" do
-    alias RxDelivery.Admin.Company
-
-    @valid_attrs %{address_id: 42, name: "some name"}
-    @update_attrs %{address_id: 43, name: "some updated name"}
-    @invalid_attrs %{address_id: nil, name: nil}
-
-    def company_fixture(attrs \\ %{}) do
-      {:ok, company} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Admin.create_company()
-
-      company
-    end
-
-    test "list_companies/0 returns all companies" do
-      company = company_fixture()
-      assert Admin.list_companies() == [company]
-    end
-
-    test "get_company!/1 returns the company with given id" do
-      company = company_fixture()
-      assert Admin.get_company!(company.id) == company
-    end
-
-    test "create_company/1 with valid data creates a company" do
-      assert {:ok, %Company{} = company} = Admin.create_company(@valid_attrs)
-      assert company.address_id == 42
-      assert company.name == "some name"
-    end
-
-    test "create_company/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Admin.create_company(@invalid_attrs)
-    end
-
-    test "update_company/2 with valid data updates the company" do
-      company = company_fixture()
-      assert {:ok, %Company{} = company} = Admin.update_company(company, @update_attrs)
-      assert company.address_id == 43
-      assert company.name == "some updated name"
-    end
-
-    test "update_company/2 with invalid data returns error changeset" do
-      company = company_fixture()
-      assert {:error, %Ecto.Changeset{}} = Admin.update_company(company, @invalid_attrs)
-      assert company == Admin.get_company!(company.id)
-    end
-
-    test "delete_company/1 deletes the company" do
-      company = company_fixture()
-      assert {:ok, %Company{}} = Admin.delete_company(company)
-      assert_raise Ecto.NoResultsError, fn -> Admin.get_company!(company.id) end
-    end
-
-    test "change_company/1 returns a company changeset" do
-      company = company_fixture()
-      assert %Ecto.Changeset{} = Admin.change_company(company)
-    end
-  end
-
   describe "pharmacies" do
     alias RxDelivery.Admin.Pharmacy
 
-    @valid_attrs %{}
-    @update_attrs %{}
-    @invalid_attrs %{company_id: -1}
+    @valid_attrs %{name: "some name"}
+    @update_attrs %{name: "some updated name"}
+    @invalid_attrs %{name: nil}
 
     def pharmacy_fixture(attrs \\ %{}) do
       {:ok, pharmacy} =
@@ -95,7 +34,7 @@ defmodule RxDelivery.AdminTest do
       assert pharmacy
     end
 
-    test "create_pharmacy/1 with non-existant company returns error changeset" do
+    test "create_pharmacy/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Admin.create_pharmacy(@invalid_attrs)
     end
 
@@ -105,7 +44,7 @@ defmodule RxDelivery.AdminTest do
       assert pharmacy
     end
 
-    test "update_pharmacy/2 with non-existant company returns error changeset" do
+    test "update_pharmacy/2 with invalid data returns error changeset" do
       pharmacy = pharmacy_fixture()
       assert {:error, %Ecto.Changeset{}} = Admin.update_pharmacy(pharmacy, @invalid_attrs)
       assert pharmacy == Admin.get_pharmacy!(pharmacy.id)
@@ -126,9 +65,9 @@ defmodule RxDelivery.AdminTest do
   describe "couriers" do
     alias RxDelivery.Admin.Courier
 
-    @valid_attrs %{}
-    @update_attrs %{}
-    @invalid_attrs %{company_id: -1}
+    @valid_attrs %{name: "some name"}
+    @update_attrs %{name: "some updated name"}
+    @invalid_attrs %{name: nil}
 
     def courier_fixture(attrs \\ %{}) do
       {:ok, courier} =
@@ -154,7 +93,7 @@ defmodule RxDelivery.AdminTest do
       assert courier
     end
 
-    test "create_courier/1 with non-existant company returns error changeset" do
+    test "create_courier/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Admin.create_courier(@invalid_attrs)
     end
 

@@ -1,10 +1,11 @@
 defmodule RxDelivery.Admin.Courier do
   use Ecto.Schema
   import Ecto.Changeset
+  alias RxDelivery.Admin.Address
 
   schema "couriers" do
-    field :address_id, :integer
     field :name, :string
+    has_many :addresses, Address
 
     timestamps()
   end
@@ -12,7 +13,7 @@ defmodule RxDelivery.Admin.Courier do
   @doc false
   def changeset(courier, attrs) do
     courier
-    |> cast(attrs, [:name, :address_id])
-    |> validate_required([:name, :address_id])
+    |> cast(attrs, [:name])
+    |> validate_required([:name])
   end
 end

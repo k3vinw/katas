@@ -3,8 +3,8 @@
 <ul>
 
   <li>
-    <strong>Company:</strong>
-    <%= @courier.company_id %>
+    <strong>Name:</strong>
+    <%= @courier.name %>
   </li>
 
 </ul>

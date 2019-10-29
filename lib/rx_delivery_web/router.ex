@@ -22,9 +22,9 @@ defmodule RxDeliveryWeb.Router do
 
   scope "/admin", RxDeliveryWeb.Admin, as: :admin do
     pipe_through :browser
-    resources "/companies", CompanyController
     resources "/pharmacies", PharmacyController
     resources "/couriers", CourierController
+    resources "/addresses", AddressController
   end
 
   scope "/dms", RxDeliveryWeb.DMS, as: :dms do

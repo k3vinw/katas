@@ -3,8 +3,8 @@
 <ul>
 
   <li>
-    <strong>Company:</strong>
-    <%= @pharmacy.company_id %>
+    <strong>Name:</strong>
+    <%= @pharmacy.name %>
   </li>
 
 </ul>
