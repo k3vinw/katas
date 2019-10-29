@@ -5,7 +5,6 @@ defmodule RxDelivery.AccountsTest do
 
   describe "users" do
     alias RxDelivery.Accounts.User
-    alias RxDelivery.Admin
 
     @valid_attrs %{encrypted_password: "some encrypted_password", username: "some username"}
     @update_attrs %{encrypted_password: "some updated encrypted_password", username: "some updated username"}

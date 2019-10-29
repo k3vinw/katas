@@ -1,11 +1,12 @@
 defmodule RxDelivery.Admin.Courier do
   use Ecto.Schema
   import Ecto.Changeset
-  alias RxDelivery.Admin.Address
+  alias RxDelivery.Admin.{Address,Pharmacy}
 
   schema "couriers" do
     field :name, :string
     has_one :address, Address
+    has_many :pharmacies, Pharmacy
 
     timestamps()
   end

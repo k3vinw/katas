@@ -7,6 +7,7 @@ defmodule RxDelivery.DMS.Order do
     field :pickup, :date
     field :status, :string
     field :user_id, :integer
+    belongs_to :pharmacy, RxDelivery.Admin.Pharmacy
 
     timestamps()
   end

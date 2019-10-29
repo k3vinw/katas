@@ -2,7 +2,6 @@ defmodule RxDeliveryWeb.UserControllerTest do
   use RxDeliveryWeb.ConnCase
 
   alias RxDelivery.Accounts
-  alias RxDelivery.Admin
 
   @create_attrs %{encrypted_password: "some encrypted_password", username: "some username"}
   @update_attrs %{encrypted_password: "some updated encrypted_password", username: "some updated username"}
