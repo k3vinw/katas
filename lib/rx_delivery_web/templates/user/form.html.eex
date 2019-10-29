@@ -14,8 +14,7 @@
   <%= error_tag f, :encrypted_password %>
 
   <%= label f, :company_id %>
-  <%= text_input f, :company_id %>
-  <%= error_tag f, :company_id %>
+  <%= select f, :company_id, @companies %>
 
   <div>
     <%= submit "Save" %>

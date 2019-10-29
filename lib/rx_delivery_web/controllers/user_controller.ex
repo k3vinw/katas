@@ -12,7 +12,9 @@ defmodule RxDeliveryWeb.UserController do
 
   def new(conn, _params) do
     changeset = Accounts.change_user(%User{})
-    render(conn, "new.html", changeset: changeset)
+    companies = Admin.list_companies
+      |> Enum.map(&{&1.name, &1.id})
+    render(conn, "new.html", changeset: changeset, companies: companies)
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -23,7 +25,9 @@ defmodule RxDeliveryWeb.UserController do
         |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        companies = Admin.list_companies
+          |> Enum.map(&{&1.name, &1.id})
+        render(conn, "new.html", companies: companies, changeset: changeset)
     end
   end
 
@@ -41,7 +45,9 @@ defmodule RxDeliveryWeb.UserController do
   def edit(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
     changeset = Accounts.change_user(user)
-    render(conn, "edit.html", user: user, changeset: changeset)
+    companies = Admin.list_companies
+      |> Enum.map(&{&1.name, &1.id})
+    render(conn, "edit.html", user: user, companies: companies, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
@@ -54,7 +60,9 @@ defmodule RxDeliveryWeb.UserController do
         |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", user: user, changeset: changeset)
+        companies = Admin.list_companies
+          |> Enum.map(&{&1.name, &1.id})
+        render(conn, "edit.html", user: user, companies: companies, changeset: changeset)
     end
   end
 
