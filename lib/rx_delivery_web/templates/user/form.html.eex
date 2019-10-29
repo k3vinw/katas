@@ -13,8 +13,11 @@
   <%= text_input f, :encrypted_password %>
   <%= error_tag f, :encrypted_password %>
 
-  <%= label f, :company_id %>
-  <%= select f, :company_id, @companies %>
+  <%= label f, :pharmacy_id %>
+  <%= select f, :pharmacy_id, @pharmacies %>
+
+  <%= label f, :courier_id %>
+  <%= select f, :courier_id, @couriers %>
 
   <div>
     <%= submit "Save" %>

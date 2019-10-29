@@ -12,9 +12,13 @@ defmodule RxDeliveryWeb.UserController do
 
   def new(conn, _params) do
     changeset = Accounts.change_user(%User{})
-    companies = Admin.list_companies
+    pharmacies = Admin.list_pharmacies
       |> Enum.map(&{&1.name, &1.id})
-    render(conn, "new.html", changeset: changeset, companies: companies)
+    couriers = Admin.list_couriers
+      |> Enum.map(&{&1.name, &1.id})
+    render(conn, "new.html", changeset: changeset,
+      pharmacies: pharmacies,
+      couriers: couriers)
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -25,29 +29,45 @@ defmodule RxDeliveryWeb.UserController do
         |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        companies = Admin.list_companies
+        pharmacies = Admin.list_pharmacies
           |> Enum.map(&{&1.name, &1.id})
-        render(conn, "new.html", companies: companies, changeset: changeset)
+        couriers = Admin.list_couriers
+          |> Enum.map(&{&1.name, &1.id})
+        render(conn, "new.html", changeset: changeset,
+          pharamacies: pharmacies,
+          couriers: couriers)
     end
   end
 
   def show(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    company = case user.company_id do
+    pharmacy = case user.pharmacy_id do
       id when id !== nil ->
-        Admin.get_company!(id)
+        Admin.get_phrmacy!(id)
       _ ->
         %{name: ""}
     end
-    render(conn, "show.html", user: user, company: company)
+    courier = case user.courier_id do
+      id when id !== nil ->
+        Admin.get_courier!(id)
+      _ ->
+        %{name: ""}
+    end
+    render(conn, "show.html", user: user,
+      pharmacy: pharmacy,
+      courier: courier)
   end
 
   def edit(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
     changeset = Accounts.change_user(user)
-    companies = Admin.list_companies
+    pharmacies = Admin.list_pharmacies
       |> Enum.map(&{&1.name, &1.id})
-    render(conn, "edit.html", user: user, companies: companies, changeset: changeset)
+    couriers = Admin.list_couriers
+      |> Enum.map(&{&1.name, &1.id})
+    render(conn, "edit.html", user: user, changeset: changeset,
+      pharmacies: pharmacies,
+      couriers: couriers)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
@@ -60,9 +80,13 @@ defmodule RxDeliveryWeb.UserController do
         |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        companies = Admin.list_companies
+        pharmacies = Admin.list_pharmacies
           |> Enum.map(&{&1.name, &1.id})
-        render(conn, "edit.html", user: user, companies: companies, changeset: changeset)
+        couriers = Admin.list_couriers
+          |> Enum.map(&{&1.name, &1.id})
+        render(conn, "edit.html", user: user, changeset: changeset,
+          pharmacies: pharmacies,
+          couriers: couriers)
     end
   end
 

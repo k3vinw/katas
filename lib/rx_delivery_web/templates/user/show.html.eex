@@ -13,8 +13,13 @@
   </li>
 
   <li>
-    <strong>Company:</strong>
-    <%= @company.name %>
+    <strong>Pharmacy:</strong>
+    <%= @pharmacy.name %>
+  </li>
+
+  <li>
+    <strong>Courier:</strong>
+    <%= @courier.name %>
   </li>
 
 </ul>

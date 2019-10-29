@@ -3,7 +3,8 @@ defmodule RxDelivery.Admin.Pharmacy do
   import Ecto.Changeset
 
   schema "pharmacies" do
-    belongs_to :company, RxDelivery.Admin.Company
+    field :address_id, :integer
+    field :name, :string
 
     timestamps()
   end
@@ -11,7 +12,7 @@ defmodule RxDelivery.Admin.Pharmacy do
   @doc false
   def changeset(pharmacy, attrs) do
     pharmacy
-    |> cast(attrs, [:company_id])
-    |> foreign_key_constraint(:company_id)
+    |> cast(attrs, [:name, :address_id])
+    |> validate_required([:name, :address_id])
   end
 end
