@@ -2,13 +2,19 @@ defmodule RxDeliveryWeb.UserControllerTest do
   use RxDeliveryWeb.ConnCase
 
   alias RxDelivery.Accounts
+  alias RxDelivery.Admin
 
   @create_attrs %{encrypted_password: "some encrypted_password", username: "some username"}
   @update_attrs %{encrypted_password: "some updated encrypted_password", username: "some updated username"}
   @invalid_attrs %{encrypted_password: nil, username: nil}
 
+  def create_attrs(attrs) do
+    {:ok, company} = Admin.create_company(%{name: "Fake", address_id: -1})
+    Map.merge(attrs, %{company_id: company.id})
+  end
+
   def fixture(:user) do
-    {:ok, user} = Accounts.create_user(@create_attrs)
+    {:ok, user} = Accounts.create_user(create_attrs(@create_attrs))
     user
   end
 
@@ -28,7 +34,7 @@ defmodule RxDeliveryWeb.UserControllerTest do
 
   describe "create user" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
+      conn = post(conn, Routes.user_path(conn, :create), user: create_attrs(@create_attrs))
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.user_path(conn, :show, id)

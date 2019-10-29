@@ -3,6 +3,7 @@ defmodule RxDeliveryWeb.UserController do
 
   alias RxDelivery.Accounts
   alias RxDelivery.Accounts.User
+  alias RxDelivery.Admin
 
   def index(conn, _params) do
     users = Accounts.list_users()
@@ -28,7 +29,13 @@ defmodule RxDeliveryWeb.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    render(conn, "show.html", user: user)
+    company = case user.company_id do
+      id when id !== nil ->
+        Admin.get_company!(id)
+      _ ->
+        %{name: ""}
+    end
+    render(conn, "show.html", user: user, company: company)
   end
 
   def edit(conn, %{"id" => id}) do

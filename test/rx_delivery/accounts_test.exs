@@ -5,15 +5,21 @@ defmodule RxDelivery.AccountsTest do
 
   describe "users" do
     alias RxDelivery.Accounts.User
+    alias RxDelivery.Admin
 
     @valid_attrs %{encrypted_password: "some encrypted_password", username: "some username"}
     @update_attrs %{encrypted_password: "some updated encrypted_password", username: "some updated username"}
     @invalid_attrs %{encrypted_password: nil, username: nil}
 
+    def valid_attrs(attrs) do
+      {:ok, company} = Admin.create_company(%{name: "Fake", address_id: -1})
+      Map.merge(attrs, %{company_id: company.id})
+    end 
+
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
         attrs
-        |> Enum.into(@valid_attrs)
+        |> Enum.into(valid_attrs(@valid_attrs))
         |> Accounts.create_user()
 
       user
@@ -30,7 +36,7 @@ defmodule RxDelivery.AccountsTest do
     end
 
     test "create_user/1 with valid data creates a user" do
-      assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
+      assert {:ok, %User{} = user} = Accounts.create_user(valid_attrs(@valid_attrs))
       assert user.encrypted_password == "some encrypted_password"
       assert user.username == "some username"
     end

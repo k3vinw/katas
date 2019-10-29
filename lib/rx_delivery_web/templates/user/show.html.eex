@@ -12,6 +12,11 @@
     <%= @user.encrypted_password %>
   </li>
 
+  <li>
+    <strong>Company:</strong>
+    <%= @company.name %>
+  </li>
+
 </ul>
 
 <span><%= link "Edit", to: Routes.user_path(@conn, :edit, @user) %></span>

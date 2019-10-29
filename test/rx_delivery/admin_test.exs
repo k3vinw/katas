@@ -95,7 +95,7 @@ defmodule RxDelivery.AdminTest do
       assert pharmacy
     end
 
-    test "create_pharmacy/1 with invalid data returns error changeset" do
+    test "create_pharmacy/1 with non-existant company returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Admin.create_pharmacy(@invalid_attrs)
     end
 
@@ -105,7 +105,7 @@ defmodule RxDelivery.AdminTest do
       assert pharmacy
     end
 
-    test "update_pharmacy/2 with invalid data returns error changeset" do
+    test "update_pharmacy/2 with non-existant company returns error changeset" do
       pharmacy = pharmacy_fixture()
       assert {:error, %Ecto.Changeset{}} = Admin.update_pharmacy(pharmacy, @invalid_attrs)
       assert pharmacy == Admin.get_pharmacy!(pharmacy.id)
@@ -154,7 +154,7 @@ defmodule RxDelivery.AdminTest do
       assert courier
     end
 
-    test "create_courier/1 with invalid data returns error changeset" do
+    test "create_courier/1 with non-existant company returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Admin.create_courier(@invalid_attrs)
     end
 

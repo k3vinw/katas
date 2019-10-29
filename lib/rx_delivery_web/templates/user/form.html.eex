@@ -13,6 +13,10 @@
   <%= text_input f, :encrypted_password %>
   <%= error_tag f, :encrypted_password %>
 
+  <%= label f, :company_id %>
+  <%= text_input f, :company_id %>
+  <%= error_tag f, :company_id %>
+
   <div>
     <%= submit "Save" %>
   </div>
