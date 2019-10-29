@@ -1,0 +1,80 @@
+RxDelivery Design & Notes
+
+TODO:
+* finish implementing login feature
+  - install and configure guardian and canary
+  - can we redirect after sign-in based on role?
+    e.g. courier and pharmacy roles sign in to Orders controller
+* finish setting up relationships as needed
+* getting orders to display correctly for pharmacies and couriers
+* make addresses manageable from patient controller
+  - design so that addresses are encapsulated for patients
+* possibly move Users to Admin web space and look for other rough edges
+* implement optional features
+
+Project Tasks:
+* install elixir
+* install postgresql
+* install phoenix
+* mix phx.new rx_delivery
+* mix phx.gen.html Accounts User users username:string:unique encrypted_password:string company_id:integer
+* mix phx.gen.html Admin Company companies name:string address_id:integer --web Admin
+* mix phx.gen.html Admin Pharmacy pharmacies company_id:integer --web Admin
+* mix phx.gen.html Admin Courier couriers company_id:integer --web Admin
+* mix phx.gen.html Admin Address addresses name:string address:string city:string state:string zip:string --web Admin
+* mix phx.gen.html DMS Patient patients name:string address_id:integer --web DMS
+* mix phx.gen.html DMS Order orders pickup:date status:string user_id:integer patient_id:integer --web DMS
+* create db associations
+* configure guardian & canary plugs
+
+Design
+* Support separate login forms for pharmacy and courier and redirect to appropriate dashboard
+* Create dashboard for pharmacies
+  - Orders
+    - list orders joined by pharmacy
+    - edit should allow assigning user to order (join users by couriers servicing pharmacy)
+    - edit should allow updating status (e.g. cancel)
+      - this could be a restricted set so they cannot mark delivered
+* Create dashboard couriers
+  - Orders
+    - list orders by pharmacies belonging to courier and assigned to user
+    - edit should allow updating status (e.g. delivered)
+      - this could be a restricted set so they cannot cancel
+* Create dashboard for admins
+  - Pharmacy
+    - list/add/edit
+  - Courier
+    - list/add/edit
+  - Orders
+    - list orders by all pharmacies
+    - add/edit
+* Order
+  - pickup: date
+  - status: OrderStatus
+  - has User
+  - has Patient
+* Patient
+  - name: string
+  - address: Address
+* User
+  - role: string
+  - belongs_to Pharmacy
+  - belongs_to Courier
+* Pharmacy
+  - name: string
+  - address: Address
+  - has many Orders
+* Courier
+  - name: string
+  - address: Address
+  - has many Pharmacy
+* Address
+  - name: string
+  - address: string
+  - city: string
+  - state: string
+  - zip: string
+
+Assumptions
+* One login per pharmacy or courier as if the user were an employee.
+* Pickup location is the the pharmacy's address.
