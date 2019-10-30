@@ -2,12 +2,13 @@ defmodule RxDelivery.AccountsTest do
   use RxDelivery.DataCase
 
   alias RxDelivery.Accounts
+  alias Argon2
 
   describe "users" do
     alias RxDelivery.Accounts.User
 
-    @valid_attrs %{encrypted_password: "some encrypted_password", username: "some username"}
-    @update_attrs %{encrypted_password: "some updated encrypted_password", username: "some updated username"}
+    @valid_attrs %{encrypted_password: "some password", username: "some username"}
+    @update_attrs %{encrypted_password: "some updated password", username: "some updated username"}
     @invalid_attrs %{encrypted_password: nil, username: nil}
 
     def user_fixture(attrs \\ %{}) do
@@ -31,7 +32,7 @@ defmodule RxDelivery.AccountsTest do
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
-      assert user.encrypted_password == "some encrypted_password"
+      assert {:ok, user} == Argon2.check_pass(user, "some password", hash_key: :encrypted_password)
       assert user.username == "some username"
     end
 
@@ -42,7 +43,7 @@ defmodule RxDelivery.AccountsTest do
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
       assert {:ok, %User{} = user} = Accounts.update_user(user, @update_attrs)
-      assert user.encrypted_password == "some updated encrypted_password"
+      assert {:ok, user} == Argon2.check_pass(user, "some updated password", hash_key: :encrypted_password)
       assert user.username == "some updated username"
     end
 

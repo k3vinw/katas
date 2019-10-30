@@ -3,6 +3,7 @@ defmodule RxDelivery.Accounts.User do
   import Ecto.Changeset
   alias RxDelivery.Admin.Pharmacy
   alias RxDelivery.Admin.Courier
+  alias Argon2
 
   schema "users" do
     field :encrypted_password, :string
@@ -21,5 +22,12 @@ defmodule RxDelivery.Accounts.User do
     |> foreign_key_constraint(:pharmacy_id)
     |> foreign_key_constraint(:courier_id)
     |> unique_constraint(:username)
+    |> put_password_hash()
   end
+
+  defp put_password_hash(%Ecto.Changeset{valid?: true, changes: %{encrypted_password: encrypted_password}} = changeset) do
+    change(changeset, encrypted_password: Argon2.hash_pwd_salt(encrypted_password))
+  end
+
+  defp put_password_hash(changeset), do: changeset
 end

@@ -17,6 +17,11 @@ config :rx_delivery, RxDeliveryWeb.Endpoint,
   render_errors: [view: RxDeliveryWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: RxDelivery.PubSub, adapter: Phoenix.PubSub.PG2]
 
+# Configures Guardian
+config :rx_delivery, RxDelivery.Accounts.Guardian,
+  issuer: "rx_delivery",
+  secret_key: "DdgAmDCZXHWp7cegyEO3dJrLIG2wM6p2xIwhrnxItF2s3F0psDwu0SMMrdM33Y6o"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

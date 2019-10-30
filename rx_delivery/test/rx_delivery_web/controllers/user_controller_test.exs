@@ -2,6 +2,7 @@ defmodule RxDeliveryWeb.UserControllerTest do
   use RxDeliveryWeb.ConnCase
 
   alias RxDelivery.Accounts
+  alias Argon2
 
   @create_attrs %{encrypted_password: "some encrypted_password", username: "some username"}
   @update_attrs %{encrypted_password: "some updated encrypted_password", username: "some updated username"}
@@ -60,7 +61,8 @@ defmodule RxDeliveryWeb.UserControllerTest do
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
 
       conn = get(conn, Routes.user_path(conn, :show, user))
-      assert html_response(conn, 200) =~ "some updated encrypted_password"
+      assert {:ok, user} == Argon2.check_pass(user, "some encrypted_password", hash_key: :encrypted_password)
+      assert html_response(conn, 200) =~ "User updated successfully"
     end
 
     test "renders errors when data is invalid", %{conn: conn, user: user} do
